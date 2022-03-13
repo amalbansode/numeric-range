@@ -111,7 +111,7 @@ TEST_CASE("Range A LB equals Range B UB", "[numeric_range]" ) {
 TEST_CASE("Simple Scalar comparisons", "[numeric_range]" ) {
   NumericRangeComparator comp;
 
-  const NumericRange A = NumericRange(0.5, true, 0.5, true);
+  const NumericRange A = NumericRange(0.5);
 
   {
     NumericRange B = NumericRange(-0.5, true, 0, true);
@@ -120,7 +120,7 @@ TEST_CASE("Simple Scalar comparisons", "[numeric_range]" ) {
   }
 
   {
-    NumericRange B = NumericRange(0, true, 0, true);
+    NumericRange B = NumericRange(0);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == true);
   }
@@ -132,7 +132,7 @@ TEST_CASE("Simple Scalar comparisons", "[numeric_range]" ) {
   }
 
   {
-    NumericRange B = NumericRange(0.5, true, 0.5, true);
+    NumericRange B = NumericRange(0.5);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == false);
   }
@@ -150,7 +150,7 @@ TEST_CASE("Simple Scalar comparisons", "[numeric_range]" ) {
   }
 
   {
-    NumericRange B = NumericRange(1, true, 1, true);
+    NumericRange B = NumericRange(1);
     REQUIRE(comp(A, B) == true);
     REQUIRE(comp(B, A) == false);
   }
@@ -165,7 +165,7 @@ TEST_CASE("Simple Scalar comparisons", "[numeric_range]" ) {
 TEST_CASE("Scalar within Range", "[numeric_range]" ) {
   NumericRangeComparator comp;
 
-  const NumericRange scalar = NumericRange(0.5, true, 0.5, true);
+  const NumericRange scalar = NumericRange(0.5);
   NumericRange range = NumericRange(0, true, 1, true);
 
   REQUIRE(comp(scalar, range) == false);
@@ -187,7 +187,7 @@ TEST_CASE("Scalar within Range", "[numeric_range]" ) {
 TEST_CASE("Scalar equals Range LB", "[numeric_range]" ) {
   NumericRangeComparator comp;
 
-  const NumericRange scalar = NumericRange(0, true, 0, true);
+  const NumericRange scalar = NumericRange(0);
   NumericRange range = NumericRange(0, true, 1, true);
 
   REQUIRE(comp(scalar, range) == false);
@@ -209,7 +209,7 @@ TEST_CASE("Scalar equals Range LB", "[numeric_range]" ) {
 TEST_CASE("Scalar equals Range UB", "[numeric_range]" ) {
   NumericRangeComparator comp;
 
-  const NumericRange scalar = NumericRange(1, true, 1, true);
+  const NumericRange scalar = NumericRange(1);
   NumericRange range = NumericRange(0, true, 1, true);
 
   REQUIRE(comp(scalar, range) == false);
