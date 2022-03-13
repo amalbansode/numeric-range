@@ -3,16 +3,17 @@
 
 #include <stdexcept>
 
+template<typename T>
 class NumericRange
 {
 public:
-  double lb = 0;
+  T lb;
   bool lb_inclusive = true;
-  double ub = 0;
+  T ub = 0;
   bool ub_inclusive = true;
 
-  NumericRange (const double _lb, const bool _lb_inclusive,
-                const double _ub, const bool _ub_inclusive) :
+  NumericRange (const T _lb, const bool _lb_inclusive,
+                const T _ub, const bool _ub_inclusive) :
       lb(_lb), lb_inclusive(_lb_inclusive),
       ub(_ub), ub_inclusive(_ub_inclusive)
   {
@@ -26,17 +27,18 @@ public:
     }
   }
 
-  explicit NumericRange (double _scalar) :
+  explicit NumericRange (T _scalar) :
       lb(_scalar), lb_inclusive(true),
       ub(_scalar), ub_inclusive(true)
   {}
 };
 
 // Is LHS < RHS?
+template<typename T>
 class NumericRangeComparator
 {
 public:
-  bool operator() (const NumericRange &lhs, const NumericRange &rhs) const
+  bool operator() (const NumericRange<T> &lhs, const NumericRange<T> &rhs) const
   {
     const bool lhs_is_scalar = (lhs.lb == lhs.ub);
     const bool rhs_is_scalar = (rhs.lb == rhs.ub);

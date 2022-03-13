@@ -8,69 +8,69 @@ using namespace std;
 
 TEST_CASE("NumericRange Constructor", "[numeric_range]" ) {
   // Basic Constructor should pass
-  REQUIRE_NOTHROW(NumericRange(0, true, 1, false));
+  REQUIRE_NOTHROW(NumericRange<int>(0, true, 1, false));
 
   // LB must be <= UB
-  REQUIRE_THROWS_AS(NumericRange(1, true, 0, false), std::runtime_error);
+  REQUIRE_THROWS_AS(NumericRange<int>(1, true, 0, false), std::runtime_error);
 
   // If LB == UB, bounds must be inclusive
-  REQUIRE_THROWS_AS(NumericRange(0, true, 0, false), std::runtime_error);
+  REQUIRE_THROWS_AS(NumericRange<int>(0, true, 0, false), std::runtime_error);
 
   // Scalar Constructor should pass
-  REQUIRE_NOTHROW(NumericRange(0));
+  REQUIRE_NOTHROW(NumericRange<int>(0));
 }
 
 /// Range-Range Comparison Tests
 
 TEST_CASE("Simple Range comparisons", "[numeric_range]" ) {
-  NumericRangeComparator comp;
+  NumericRangeComparator<double> comp;
 
-  const NumericRange A = NumericRange(0, true, 1, true);
+  const NumericRange A = NumericRange<double>(0, true, 1, true);
 
   {
-    NumericRange B = NumericRange(0, true, 1, true);
+    NumericRange B = NumericRange<double>(0, true, 1, true);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == false);
   }
 
   {
-    NumericRange B = NumericRange(-0.5, true, -0.25, true);
+    NumericRange B = NumericRange<double>(-0.5, true, -0.25, true);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == true);
   }
 
   {
-    NumericRange B = NumericRange(-0.5, true, 0, true);
+    NumericRange B = NumericRange<double>(-0.5, true, 0, true);
     REQUIRE_THROWS_AS(comp(A, B), std::runtime_error);
     REQUIRE_THROWS_AS(comp(B, A), std::runtime_error);
   }
 
   {
-    NumericRange B = NumericRange(0, true, 0.5, true);
+    NumericRange B = NumericRange<double>(0, true, 0.5, true);
     REQUIRE_THROWS_AS(comp(A, B), std::runtime_error);
     REQUIRE_THROWS_AS(comp(B, A), std::runtime_error);
   }
 
   {
-    NumericRange B = NumericRange(0.25, true, 0.75, true);
+    NumericRange B = NumericRange<double>(0.25, true, 0.75, true);
     REQUIRE_THROWS_AS(comp(A, B), std::runtime_error);
     REQUIRE_THROWS_AS(comp(B, A), std::runtime_error);
   }
 
   {
-    NumericRange B = NumericRange(0.5, true, 1, true);
+    NumericRange B = NumericRange<double>(0.5, true, 1, true);
     REQUIRE_THROWS_AS(comp(A, B), std::runtime_error);
     REQUIRE_THROWS_AS(comp(B, A), std::runtime_error);
   }
 
   {
-    NumericRange B = NumericRange(1, true, 1.25, true);
+    NumericRange B = NumericRange<double>(1, true, 1.25, true);
     REQUIRE_THROWS_AS(comp(A, B), std::runtime_error);
     REQUIRE_THROWS_AS(comp(B, A), std::runtime_error);
   }
 
   {
-    NumericRange B = NumericRange(1.25, true, 1.5, true);
+    NumericRange B = NumericRange<double>(1.25, true, 1.5, true);
     REQUIRE(comp(A, B) == true);
     REQUIRE(comp(B, A) == false);
   }
@@ -78,10 +78,10 @@ TEST_CASE("Simple Range comparisons", "[numeric_range]" ) {
 }
 
 TEST_CASE("Range A UB equals Range B LB", "[numeric_range]" ) {
-  NumericRangeComparator comp;
+  NumericRangeComparator<int> comp;
 
-  NumericRange A = NumericRange(0, true, 1, true);
-  NumericRange B = NumericRange(1, true, 2, true);
+  NumericRange A = NumericRange<int>(0, true, 1, true);
+  NumericRange B = NumericRange<int>(1, true, 2, true);
 
   REQUIRE_THROWS_AS(comp(A, B), std::runtime_error);
   REQUIRE_THROWS_AS(comp(B, A), std::runtime_error);
@@ -100,10 +100,10 @@ TEST_CASE("Range A UB equals Range B LB", "[numeric_range]" ) {
 }
 
 TEST_CASE("Range A LB equals Range B UB", "[numeric_range]" ) {
-  NumericRangeComparator comp;
+  NumericRangeComparator<int> comp;
 
-  NumericRange A = NumericRange(0, true, 1, true);
-  NumericRange B = NumericRange(-1, true, 0, true);
+  NumericRange A = NumericRange<int>(0, true, 1, true);
+  NumericRange B = NumericRange<int>(-1, true, 0, true);
 
   REQUIRE_THROWS_AS(comp(A, B), std::runtime_error);
   REQUIRE_THROWS_AS(comp(B, A), std::runtime_error);
@@ -124,64 +124,64 @@ TEST_CASE("Range A LB equals Range B UB", "[numeric_range]" ) {
 /// Scalar-Range and Scalar-Scalar Comparison Tests
 
 TEST_CASE("Simple Scalar comparisons", "[numeric_range]" ) {
-  NumericRangeComparator comp;
+  NumericRangeComparator<double> comp;
 
-  const NumericRange A = NumericRange(0.5);
+  const NumericRange A = NumericRange<double>(0.5);
 
   {
-    NumericRange B = NumericRange(-0.5, true, 0, true);
+    NumericRange B = NumericRange<double>(-0.5, true, 0, true);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == true);
   }
 
   {
-    NumericRange B = NumericRange(0);
+    NumericRange B = NumericRange<double>(0);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == true);
   }
 
   {
-    NumericRange B = NumericRange(0, true, 0.5, true);
+    NumericRange B = NumericRange<double>(0, true, 0.5, true);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == false);
   }
 
   {
-    NumericRange B = NumericRange(0.5);
+    NumericRange B = NumericRange<double>(0.5);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == false);
   }
 
   {
-    NumericRange B = NumericRange(0.5, true, 1, true);
+    NumericRange B = NumericRange<double>(0.5, true, 1, true);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == false);
   }
 
   {
-    NumericRange B = NumericRange(0, true, 1, true);
+    NumericRange B = NumericRange<double>(0, true, 1, true);
     REQUIRE(comp(A, B) == false);
     REQUIRE(comp(B, A) == false);
   }
 
   {
-    NumericRange B = NumericRange(1);
+    NumericRange B = NumericRange<double>(1);
     REQUIRE(comp(A, B) == true);
     REQUIRE(comp(B, A) == false);
   }
 
   {
-    NumericRange B = NumericRange(1, true, 1.25, true);
+    NumericRange B = NumericRange<double>(1, true, 1.25, true);
     REQUIRE(comp(A, B) == true);
     REQUIRE(comp(B, A) == false);
   }
 }
 
 TEST_CASE("Scalar within Range", "[numeric_range]" ) {
-  NumericRangeComparator comp;
+  NumericRangeComparator<double> comp;
 
-  const NumericRange scalar = NumericRange(0.5);
-  NumericRange range = NumericRange(0, true, 1, true);
+  const NumericRange scalar = NumericRange<double>(0.5);
+  NumericRange range = NumericRange<double>(0, true, 1, true);
 
   REQUIRE(comp(scalar, range) == false);
   REQUIRE(comp(range, scalar) == false);
@@ -200,10 +200,10 @@ TEST_CASE("Scalar within Range", "[numeric_range]" ) {
 }
 
 TEST_CASE("Scalar equals Range LB", "[numeric_range]" ) {
-  NumericRangeComparator comp;
+  NumericRangeComparator<int> comp;
 
-  const NumericRange scalar = NumericRange(0);
-  NumericRange range = NumericRange(0, true, 1, true);
+  const NumericRange scalar = NumericRange<int>(0);
+  NumericRange range = NumericRange<int>(0, true, 1, true);
 
   REQUIRE(comp(scalar, range) == false);
   REQUIRE(comp(range, scalar) == false);
@@ -222,10 +222,10 @@ TEST_CASE("Scalar equals Range LB", "[numeric_range]" ) {
 }
 
 TEST_CASE("Scalar equals Range UB", "[numeric_range]" ) {
-  NumericRangeComparator comp;
+  NumericRangeComparator<int> comp;
 
-  const NumericRange scalar = NumericRange(1);
-  NumericRange range = NumericRange(0, true, 1, true);
+  const NumericRange scalar = NumericRange<int>(1);
+  NumericRange range = NumericRange<int>(0, true, 1, true);
 
   REQUIRE(comp(scalar, range) == false);
   REQUIRE(comp(range, scalar) == false);
