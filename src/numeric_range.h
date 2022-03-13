@@ -46,19 +46,11 @@ public:
       {
         return false;
       }
-      else if (lhs.ub < rhs.lb)
+      else if ((lhs.ub < rhs.lb) || (lhs.ub == rhs.lb && !(lhs.ub_inclusive && rhs.lb_inclusive)))
       {
         return true;
       }
-      else if (lhs.ub == rhs.lb && !(lhs.ub_inclusive && rhs.lb_inclusive))
-      {
-        return true;
-      }
-      else if (lhs.lb > rhs.ub)
-      {
-        return false;
-      }
-      else if (lhs.lb == rhs.ub && !(lhs.lb_inclusive && rhs.ub_inclusive))
+      else if ((lhs.lb > rhs.ub) || (lhs.lb == rhs.ub && !(lhs.lb_inclusive && rhs.ub_inclusive)))
       {
         return false;
       }
