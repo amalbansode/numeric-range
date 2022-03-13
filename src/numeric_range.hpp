@@ -1,5 +1,5 @@
-#ifndef JSON_EQUATION_JSON_EQUATION_H
-#define JSON_EQUATION_JSON_EQUATION_H
+#ifndef NUMERIC_RANGE_HPP
+#define NUMERIC_RANGE_HPP
 
 #include <stdexcept>
 
@@ -67,4 +67,4 @@ public:
   } // bool operator()
 }; // class NumericRangeComparator
 
-#endif //JSON_EQUATION_JSON_EQUATION_H
+#endif //NUMERIC_RANGE_HPP

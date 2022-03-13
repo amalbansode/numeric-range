@@ -1,4 +1,4 @@
-#include "../src/numeric_range.h"
+#include "../src/numeric_range.hpp"
 
 #include <iostream>
 #include <map>

@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main()
 
 #include "catch.hpp"
-#include "../src/numeric_range.h"
+#include "../src/numeric_range.hpp"
 
 using namespace std;
 
