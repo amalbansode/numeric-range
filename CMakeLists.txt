@@ -3,5 +3,6 @@ project(json_equation VERSION 3.17 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
+include(example/CMakeLists.txt)
 include(src/CMakeLists.txt)
 include(test/CMakeLists.txt)
