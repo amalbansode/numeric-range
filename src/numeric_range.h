@@ -29,36 +29,15 @@ public:
 
     if (lhs_is_scalar && rhs_is_scalar)
     {
-      if (lhs.lb < rhs.lb)
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+      return (lhs.lb < rhs.lb);
     }
     else if (lhs_is_scalar)
     {
-      if ((lhs.lb < rhs.lb && rhs.lb_inclusive) || (lhs.lb == rhs.lb && !rhs.lb_inclusive))
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+      return ((lhs.lb < rhs.lb && rhs.lb_inclusive) || (lhs.lb == rhs.lb && !rhs.lb_inclusive));
     }
     else if (rhs_is_scalar)
     {
-      if ((lhs.ub < rhs.lb && lhs.ub_inclusive) || (lhs.ub == rhs.lb && !lhs.ub_inclusive))
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+      return ((lhs.ub < rhs.lb && lhs.ub_inclusive) || (lhs.ub == rhs.lb && !lhs.ub_inclusive));
     }
     else
     {
