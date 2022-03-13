@@ -1,7 +1,7 @@
 #ifndef JSON_EQUATION_JSON_EQUATION_H
 #define JSON_EQUATION_JSON_EQUATION_H
 
-#include <exception>
+#include <stdexcept>
 
 class NumericRange
 {
