@@ -33,11 +33,11 @@ public:
     }
     else if (lhs_is_scalar)
     {
-      return ((lhs.lb < rhs.lb && rhs.lb_inclusive) || (lhs.lb == rhs.lb && !rhs.lb_inclusive));
+      return ((lhs.lb < rhs.lb) || (lhs.lb == rhs.lb && !rhs.lb_inclusive));
     }
     else if (rhs_is_scalar)
     {
-      return ((lhs.ub < rhs.lb && lhs.ub_inclusive) || (lhs.ub == rhs.lb && !lhs.ub_inclusive));
+      return ((lhs.ub < rhs.lb) || (lhs.ub == rhs.lb && !lhs.ub_inclusive));
     }
     else
     {
