@@ -9,18 +9,18 @@
 int main ()
 {
   // Remember to use the custom comparator
-  std::map<NumericRange, double, NumericRangeComparator> range_based_map;
+  std::map<NumericRange<int>, double, NumericRangeComparator<int> > range_based_map;
 
   // Populate the map with some sample ranges and a mix of bound types
   range_based_map.insert({{0, true, 1, false}, 0});
-  range_based_map.insert({{1, false, 2, false}, 1});
+  range_based_map.insert({{1, false, 3, false}, 1});
   range_based_map.insert({{5, false, 6, true}, 5});
 
   // Inserting an overlapping range is an error because overlapping
   // ranges cannot be compared and thus sorted
   try
   {
-    range_based_map.insert({{1, true, 2.5, false}, 2});
+    range_based_map.insert({{1, true, 4, false}, 2});
   }
   catch (std::runtime_error &e)
   {
@@ -29,12 +29,12 @@ int main ()
 
   // Index into the map with a "scalar" we expect to be contained in some range
   std::cout << range_based_map[NumericRange{0}] << std::endl;
-  std::cout << range_based_map[NumericRange{1.5}] << std::endl;
+  std::cout << range_based_map[NumericRange{2}] << std::endl;
   std::cout << range_based_map[NumericRange{6}] << std::endl;
 
   // Note that the range (1, 2) inserted above uses *exclusive* bounds,
   // so a value should not be found for 2!
-  auto nonexistent = range_based_map.find(NumericRange{2});
+  auto nonexistent = range_based_map.find(NumericRange{4});
   if (nonexistent != range_based_map.end())
     std::cout << nonexistent->second << std::endl;
   else
