@@ -15,7 +15,16 @@ public:
                const double _ub, const bool _ub_inclusive) :
                lb(_lb), lb_inclusive(_lb_inclusive),
                ub(_ub), ub_inclusive(_ub_inclusive)
-  {}
+  {
+    if (lb > ub)
+    {
+      throw std::runtime_error("LB cannot be greater than UB");
+    }
+    if (lb == ub && (!lb_inclusive || !ub_inclusive))
+    {
+      throw std::runtime_error("LB and UB must be inclusive when LB == UB");
+    }
+  }
 
   explicit NumericRange(double _scalar) :
                         lb(_scalar), lb_inclusive(true),

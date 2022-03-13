@@ -5,6 +5,21 @@
 
 using namespace std;
 
+
+TEST_CASE("NumericRange Constructor", "[numeric_range]" ) {
+  // Basic Constructor should pass
+  REQUIRE_NOTHROW(NumericRange(0, true, 1, false));
+
+  // LB must be <= UB
+  REQUIRE_THROWS_AS(NumericRange(1, true, 0, false), std::runtime_error);
+
+  // If LB == UB, bounds must be inclusive
+  REQUIRE_THROWS_AS(NumericRange(0, true, 0, false), std::runtime_error);
+
+  // Scalar Constructor should pass
+  REQUIRE_NOTHROW(NumericRange(0));
+}
+
 /// Range-Range Comparison Tests
 
 TEST_CASE("Simple Range comparisons", "[numeric_range]" ) {
