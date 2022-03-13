@@ -16,6 +16,11 @@ public:
                lb(_lb), lb_inclusive(_lb_inclusive),
                ub(_ub), ub_inclusive(_ub_inclusive)
   {}
+
+  explicit NumericRange(double _scalar) :
+                        lb(_scalar), lb_inclusive(true),
+                        ub(_scalar), ub_inclusive(true)
+  {}
 };
 
 // Is LHS < RHS?
