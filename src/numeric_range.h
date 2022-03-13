@@ -22,7 +22,7 @@ public:
 class NumericRangeComparator
 {
 public:
-  bool operator()(const NumericRange& lhs, const NumericRange& rhs)
+  bool operator()(const NumericRange& lhs, const NumericRange& rhs) const
   {
     const bool lhs_is_scalar = (lhs.lb == lhs.ub);
     const bool rhs_is_scalar = (rhs.lb == rhs.ub);
