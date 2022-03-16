@@ -3,6 +3,8 @@
 
 #include <stdexcept>
 
+namespace numeric_range {
+
 template<typename T>
 class NumericRange
 {
@@ -38,7 +40,8 @@ template<typename T>
 class NumericRangeComparator
 {
 public:
-  bool operator() (const NumericRange<T> &lhs, const NumericRange<T> &rhs) const
+  bool
+  operator() (const NumericRange<T> &lhs, const NumericRange<T> &rhs) const
   {
     const bool lhs_is_scalar = (lhs.lb == lhs.ub);
     const bool rhs_is_scalar = (rhs.lb == rhs.ub);
@@ -80,5 +83,7 @@ public:
     }
   } // bool operator()
 }; // class NumericRangeComparator
+
+} // namespace numeric_range
 
 #endif //NUMERIC_RANGE_HPP

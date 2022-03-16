@@ -3,6 +3,8 @@
 #include <iostream>
 #include <map>
 
+using namespace numeric_range;
+
 // A sample program that uses a NumericRange as the key for mapping to a value.
 // Demonstrates insertion, error detection for overlapping ranges, indexing
 // with a "scalar", and iterator usage.

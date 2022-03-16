@@ -4,7 +4,7 @@
 #include "../src/numeric_range.hpp"
 
 using namespace std;
-
+using namespace numeric_range;
 
 TEST_CASE("NumericRange Constructor", "[numeric_range]" ) {
   // Basic Constructor should pass

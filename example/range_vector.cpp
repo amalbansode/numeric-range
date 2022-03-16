@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+using namespace numeric_range;
+
 // Helper function to print a numeric range using math-esque notation of
 // bound inclusivity/exclusivity.
 template <typename T>
