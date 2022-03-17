@@ -1,3 +1,18 @@
+/*
+ * numeric_range
+ *
+ * Copyright (c) 2022 Amal Bansode <https://www.amalbansode.com>.
+ * Provided under the MIT License
+ *
+ * A header-only C++ library that enables the representation of a range of
+ * values in a linear space (via the NumericRange class).
+ * The linear space, of type T, must have a well-defined operator< to enable
+ * sorting and comparison of ranges (via the NumericRangeComparator). Hence
+ * while this library could be used for a variety of types, numeric types
+ * are the only ones with correctness guarantees for the classes and methods
+ * shipped in this version of the library.
+ */
+
 #ifndef NUMERIC_RANGE_HPP
 #define NUMERIC_RANGE_HPP
 
