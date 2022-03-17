@@ -5,6 +5,14 @@
 
 namespace numeric_range {
 
+/**
+ * A Numeric Range represents a linear space with a minimum and maximum bound.
+ * While the class is templated for any type T, as the name suggests, this
+ * should be used for numeric types only. Other types may have undefined
+ * behavior.
+ * Use the NumericRangeComparator to compare NumericRange objects.
+ * @tparam T Recommend a numeric type that has a well-defined operator<.
+ */
 template<typename T>
 class NumericRange
 {
@@ -14,6 +22,19 @@ public:
   T ub = 0;
   bool ub_inclusive = true;
 
+  /**
+   * Construct a Numeric Range from the lower bound, upper bound,
+   * and their inclusive/exclusive attributes respectively.
+   * Note that:
+   * - LB <= UB
+   * - if LB == UB, both bounds must be inclusive
+   * If either condition is violated, a runtime_error is thrown.
+   * @param _lb
+   * @param _lb_inclusive
+   * @param _ub
+   * @param _ub_inclusive
+   * @throws runtime_error If bounds are invalid
+   */
   NumericRange (const T _lb, const bool _lb_inclusive,
                 const T _ub, const bool _ub_inclusive) :
       lb(_lb), lb_inclusive(_lb_inclusive),
@@ -29,17 +50,41 @@ public:
     }
   }
 
+  /**
+   * Construct a "scalar", i.e., a single value with both bounds set as
+   * inclusive. For instance, while [0, 1] is a range, 0.5 by itself is
+   * a single number or a scalar. Defining this as the same type as a range
+   * even though it may not represent one helps with comparing/ordering.
+   * @param _scalar
+   */
   explicit NumericRange (T _scalar) :
       lb(_scalar), lb_inclusive(true),
       ub(_scalar), ub_inclusive(true)
   {}
-};
+}; /* class NumericRange */
 
-// Is LHS < RHS?
+/**
+ * This can be passed to STL containers or algorithms to aid in comparing
+ * objects of type NumericRange.
+ * @tparam T Recommend a numeric type that has a well-defined operator<.
+ */
 template<typename T>
 class NumericRangeComparator
 {
 public:
+  /**
+   * Compare LHS and RHS of type NumericRange (their underlying template type
+   * should also be the same) and return whether LHS < RHS.
+   * Overlapping ranges cannot be ordered so comparing them will necessarily
+   * result in a runtime_error being thrown.
+   * If either is a scalar, a return value of false may indicate that the
+   * the scalar is contained in the other range, although the caller will
+   * need to check LHS > RHS to be sure of this (STL typically does this).
+   * @param lhs
+   * @param rhs
+   * @return Whether LHS < RHS
+   * @throws runtime_error When overlapping ranges are compared
+   */
   bool
   operator() (const NumericRange<T> &lhs, const NumericRange<T> &rhs) const
   {
@@ -81,9 +126,9 @@ public:
             "Invalid comparison between overlapping ranges");
       }
     }
-  } // bool operator()
-}; // class NumericRangeComparator
+  } /* bool operator() */
+}; /* class NumericRangeComparator */
 
-} // namespace numeric_range
+} /* namespace numeric_range */
 
 #endif //NUMERIC_RANGE_HPP
