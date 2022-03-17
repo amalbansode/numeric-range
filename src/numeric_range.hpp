@@ -32,7 +32,7 @@ template<typename T>
 class NumericRange
 {
 public:
-  T lb;
+  T lb = 0;
   bool lb_inclusive = true;
   T ub = 0;
   bool ub_inclusive = true;
